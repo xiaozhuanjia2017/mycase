@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>考试题库</title>
+    <style>
+        body {
+            background-color: lightblue;
+        }
+
+        .answer {
+            margin-left: 20px;
+        }
+
+        .title {
+            background-color: lightskyblue;
+        }
+
+        .button{
+            background-color: coral;
+            padding: 5px 20px;
+            border: none;
+            margin: 5px 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    {% for item in data %}
+        <div class="item">
+            <div class="title">{{ item.title }}</div>
+            <div class="answer" id="answer{{ item.id }}" style="display: none;">
+                {% autoescape off %}
+                    {{ item.answer }}
+                {% endautoescape %}
+            </div>
+            <div>
+                <input type="button" class="button" value="答案" onclick="answerfunc(this)" data-id="{{ item.id }}">
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<script>
+
+    function answerfunc(input) {
+        id = input.dataset.id
+        answer = document.getElementById("answer" + id)
+        if (answer.style.display=="none") {
+            answer.style.display = "block"
+        } else {
+            answer.style.display = "none"
+        }
+    }
+
+</script>
+</body>
+</html>
